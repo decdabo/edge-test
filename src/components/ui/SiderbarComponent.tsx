@@ -22,7 +22,7 @@ export const SiderbarComponent = () => {
       label: <Link href={PAGES.HOME}>Home</Link>,
     },
     {
-      key: 0,
+      key: 1,
       label: <Link style={{ color: 'red' }}  onClick={handleLogout} href={PAGES.LOGIN}>
         Logout {' '}
       </Link>,

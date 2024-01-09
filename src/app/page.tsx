@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Divider, Flex, Spin } from "antd";
 
-import { ClientsCardsComponents } from "@/components/home/ClientsCardsComponents";
+import { ClientsCardsComponents } from "@/components/home/ClientsCardsComponent";
 import { getStreamStatuses } from "@/services/services";
 import { GetStreamsStatusesDto, StreamStatus } from "@/utils/types";
 

@@ -13,7 +13,7 @@ export const ClientsCardsComponents:React.FC<ClientsCardsComponentsProps> = ({ s
     <Row>
       {
         streamsData?.map((streams, index) => (
-          <Col span={8} key={`${index}-card-home-key`}>
+          <Col span={8} key={`${index}-card-home-key-${streams[0].attributes.account_name}`}>
             <Card 
               title={
                 <>
@@ -37,7 +37,7 @@ export const ClientsCardsComponents:React.FC<ClientsCardsComponentsProps> = ({ s
                 </Link>
               {
                 streams.map((stream, index) => (
-                  <p style={{ display: 'flex', justifyContent: 'space-between' }} key={`${index}-single-stream-status-key`}>
+                  <p style={{ display: 'flex', justifyContent: 'space-between' }} key={`${index}-single-stream-status-key-${stream.attributes.stream_url}`}>
                     <span>{stream.attributes.stream_name}</span> 
                     <Tag color={stream.attributes.stream_status === 'Running Normal' ? 'green' : 'red'}>
                       {stream.attributes.stream_status}

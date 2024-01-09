@@ -55,7 +55,6 @@ export const StreamsTableComponent:React.FC<StreamsTableComponentProps> = ({ str
     },
     {
       title: "Status",
-      key: "stream_status",
       dataIndex: "stream_status",
       render: (_: any, { stream_status, probe_id }: { stream_status: string, probe_id: string }) => {
         const color = stream_status === 'Running Normal' ? 'green' : 'volcano'
