@@ -2,6 +2,116 @@ body {
   background-color: rgb(169, 169, 169);
 }
 
-.bg-grey {
+.page-wrapper {
   background-color: rgb(237, 237, 237);
+  padding: 20px;
+  height: 100%;
+}
+
+.text-white {
+  color: #cfcfcf !important;
+}
+
+.text-red {
+  color: red !important;
+}
+
+.scroll-shadows {
+  height: 150px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+
+  background:
+    /* Shadow Cover TOP */
+    linear-gradient(
+      white 30%,
+      rgba(255, 255, 255, 0)
+    ) center top,
+    
+    /* Shadow Cover BOTTOM */
+    linear-gradient(
+      rgba(255, 255, 255, 0), 
+      white 70%
+    ) center bottom,
+    
+    /* Shadow TOP */
+    radial-gradient(
+      farthest-side at 50% 0,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0)
+    ) center top,
+    
+    /* Shadow BOTTOM */
+    radial-gradient(
+      farthest-side at 50% 100%,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0)
+    ) center bottom;
+  
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.scroll-shadows {
+  --scrollbarBG: transparent;
+  --thumbBG: #90a4ae;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+.scroll-shadows::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-shadows::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+.scroll-shadows::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+.home-card-stream {
+  width: 90%;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.stream-card-body {
+   display: flex;
+   justify-content: space-evenly;
+}
+
+.stream-card-body .stream-card-name {
+  max-width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stream-card-body .stream-card-tag {
+  max-height: 50px;
+}
+
+.sidebar-row {
+  padding: 0px 20px;
+}
+
+
+.auth-layout {
+  min-height: 98vh;
+  border-radius: 5px;
+}
+
+.login-screen {
+  width: 99vw;
+  height: 97.5vh;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.login-form {
+  max-width: 600px;
 }
