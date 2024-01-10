@@ -33,7 +33,7 @@ const Page = () => {
   
 
   return (
-    <div className='bg-grey' style={{ height: '100%', padding: '20px' }}>
+    <div className="page-wrapper">
       {
         streamData && (
           <StreamDetailComponent streamData={streamData} isStream={true} />

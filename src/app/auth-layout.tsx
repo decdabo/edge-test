@@ -28,7 +28,7 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       }
       {
         (state.isAuth) && (
-          <Layout style={{ minHeight: '98vh', borderRadius: '5px' }}>
+          <Layout className='auth-layout'>
             <SiderbarComponent />     
             <Layout.Content style={{ padding: '10px' }}>
               {children}        

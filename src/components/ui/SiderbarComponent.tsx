@@ -23,7 +23,7 @@ export const SiderbarComponent = () => {
     },
     {
       key: 1,
-      label: <Link style={{ color: 'red' }}  onClick={handleLogout} href={PAGES.LOGIN}>
+      label: <Link className="text-red" onClick={handleLogout} href={PAGES.LOGIN}>
         Logout {' '}
       </Link>,
     },
@@ -31,12 +31,12 @@ export const SiderbarComponent = () => {
 
   return (
     <Layout.Sider breakpoint="lg" collapsedWidth="0">
-      <Row style={{ padding: "0px 10px" }}>
+      <Row className="sidebar-row">
         <Col span={24}>
-          <Title level={5} style={{ color: 'grey' }}>{state.username}</Title>
+          <Title level={5} className="text-white">{state.username}</Title>
         </Col>
         <Col span={24}>
-          <Title level={5} style={{ color: 'grey' }}>{state.email}</Title>
+          <Title level={5} className="text-white">{state.email}</Title>
         </Col>
       </Row>
       <Divider />

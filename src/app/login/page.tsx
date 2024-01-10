@@ -55,12 +55,12 @@ const Login = () => {
     <Flex
       justify="center"
       align="center"
-      style={{ width: "99vw", height: "98vh", backgroundColor: "white" }}
+      className="login-screen"
     >
       <Form
+        className="login-form"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
         initialValues={formData}
         onFinish={handleSubmit}
         autoComplete="off"

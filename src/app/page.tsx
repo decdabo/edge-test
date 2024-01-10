@@ -6,6 +6,7 @@ import { ClientsCardsComponents } from "@/components/home/ClientsCardsComponent"
 import { getStreamStatuses } from "@/services/services";
 import { GetStreamsStatusesDto, StreamStatus } from "@/utils/types";
 import { useAuthContext } from "@/context/auth-context";
+import { SpinnerComponent } from "@/components/commons/SpinnerComponent";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -56,15 +57,13 @@ export default function Home() {
 
 
   return (
-    <div className="bg-grey" style={{ padding: "20px", height: "100%" }}>
+    <div className="page-wrapper">
       <Divider />
       {!isLoading && streamsData && (
         <ClientsCardsComponents streamsData={streamsData ?? []} />
       )}
       {isLoading && (
-        <Flex align="center" justify="center" style={{ height: "80%" }}>
-          <Spin />
-        </Flex>
+        <SpinnerComponent height="80%" />
       )}
     </div>
   );

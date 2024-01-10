@@ -1,10 +1,11 @@
 "use client";
 import { StreamsTableComponent } from "@/components/account_name/StreamsTableComponent";
+import { SpinnerComponent } from "@/components/commons/SpinnerComponent";
 import { useAuthContext } from "@/context/auth-context";
 import { getClientStreams, getClientsAlarms } from "@/services/services";
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
-import { Breadcrumb, Col, Divider, Flex, Row, Spin } from "antd";
+import { Breadcrumb, Col, Divider, Row  } from "antd";
 import Title from "antd/es/typography/Title";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -44,7 +45,7 @@ const Page = () => {
 
 
   return (
-    <div className="bg-grey" style={{ padding: "20px", height: "100%" }}>
+    <div className="page-wrapper">
       <Breadcrumb>
         <Breadcrumb.Item>
           <Link href={PAGES.HOME}>Home</Link>
@@ -61,9 +62,7 @@ const Page = () => {
               <StreamsTableComponent streamsData={streamsData ?? []} isStream={true} />
             </>
           ) : (
-            <Flex align="center" justify="center" style={{ height: "75vh" }}>
-              <Spin />
-            </Flex>
+            <SpinnerComponent />
           )}
         </Col>
 
@@ -74,9 +73,7 @@ const Page = () => {
               <StreamsTableComponent streamsData={alarmsData ?? []} />
             </>
           ) : (
-            <Flex align="center" justify="center" style={{ height: "75vh" }}>
-              <Spin />
-            </Flex>
+            <SpinnerComponent />
           )}
         </Col>
       </Row>
