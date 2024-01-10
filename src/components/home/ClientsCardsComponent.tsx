@@ -1,8 +1,9 @@
 import React from "react";
-import { StreamStatus } from "@/utils/types";
-import { Card, Col, Row, Tag, Tooltip } from "antd";
 import Link from "next/link";
+import { Card, Col, Row, Tag, Tooltip } from "antd";
+import { AntDesignColors, StreamStatus } from "@/utils/types";
 import { PAGES } from "@/utils/pages";
+import { RUNNING_NORMAL } from "@/utils/constants";
 
 interface ClientsCardsComponentsProps {
   streamsData: StreamStatus[][] | undefined
@@ -19,8 +20,8 @@ export const ClientsCardsComponents:React.FC<ClientsCardsComponentsProps> = ({ s
                 <p>
                   <span>{streams[0].attributes?.account_name}</span>
                   <br />
-                  <Tag color="green">{ streams.filter(stream => stream.attributes.stream_status === 'Running Normal').length } Running Normal</Tag>
-                  <Tag color="red">{ streams.filter(stream => stream.attributes.stream_status !== 'Running Normal').length } Have error</Tag>
+                  <Tag color={AntDesignColors.OK}>{ streams.filter(stream => stream.attributes.stream_status === RUNNING_NORMAL).length } Running Normal</Tag>
+                  <Tag color={AntDesignColors.ERROR}>{ streams.filter(stream => stream.attributes.stream_status !== RUNNING_NORMAL).length } Have error</Tag>
                 </p>
               } 
               bordered={false} 
@@ -45,7 +46,7 @@ export const ClientsCardsComponents:React.FC<ClientsCardsComponentsProps> = ({ s
                       {stream.attributes.stream_name}
                       </span> 
                     </Tooltip>
-                      <Tag className="stream-card-tag" color={stream.attributes.stream_status === 'Running Normal' ? 'green' : 'red'}>
+                      <Tag className="stream-card-tag" color={stream.attributes.stream_status === RUNNING_NORMAL ? AntDesignColors.OK : AntDesignColors.ERROR}>
                         {stream.attributes.stream_status}
                       </Tag>
                     <Link href={{ pathname: PAGES.STREAM_DETAIL, query: { id: stream.id } }}>View</Link>

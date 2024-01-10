@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Flex, Form, Input } from "antd";
-import { login } from "@/services/services";
-import { AuthContextTypes, LoginDto } from "@/utils/types";
-import { useAuthContext } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
+import { Button, Flex, Form, Input } from "antd";
 import { PAGES } from "@/utils/pages";
+import { AuthContextTypes, LoginDto } from "@/utils/types";
+import { login } from "@/services/services";
+import { AuthContextStateTypes, useAuthContext } from "@/context/auth-context";
 
 interface FormData {
   username: string;
@@ -19,8 +19,9 @@ const initialState: FormData = {
 
 const Login = () => {
   const router = useRouter()
+  const { state, dispatch }: AuthContextStateTypes = useAuthContext();
+
   const [formData, setFormData] = useState<FormData>(initialState);
-  const { _, dispatch }: any = useAuthContext();
 
   async function handleSubmit() {
     const body: LoginDto = {
@@ -33,6 +34,7 @@ const Login = () => {
         dispatch({
           type: AuthContextTypes.LOGIN,
           payload: {
+            isAuth: true,
             token: response.jwt,
             username: response.user.username,
             email: response.user.email,

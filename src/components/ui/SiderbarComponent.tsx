@@ -1,10 +1,10 @@
+import React from "react";
+import Link from "next/link";
+import Title from "antd/es/typography/Title";
+import { Col, Divider, Layout, Menu, Row } from "antd";
 import { useAuthContext } from "@/context/auth-context";
 import { PAGES } from "@/utils/pages";
 import { AuthContextTypes } from "@/utils/types";
-import { Col, Divider, Layout, Menu, Row } from "antd";
-import Title from "antd/es/typography/Title";
-import Link from "next/link";
-import React from "react";
 
 export const SiderbarComponent = () => {
   const { state, dispatch }: any = useAuthContext();

@@ -1,10 +1,11 @@
-import { PAGES } from "@/utils/pages";
-import { StreamStatus } from "@/utils/types";
-import { Breadcrumb, Button, Col, Descriptions, Divider, Row, Tag } from "antd";
-import Title from "antd/es/typography/Title";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Title from "antd/es/typography/Title";
+import { Breadcrumb, Button, Col, Descriptions, Divider, Row, Tag } from "antd";
 import { CSVLink } from "react-csv";
+import { RUNNING_NORMAL } from "@/utils/constants";
+import { PAGES } from "@/utils/pages";
+import { AntDesignColors, DescriptionState, StreamStatus } from "@/utils/types";
 
 export const StreamDetailComponent = ({
   streamData,
@@ -13,7 +14,7 @@ export const StreamDetailComponent = ({
   streamData: StreamStatus;
   isStream: boolean
 }) => {
-  const [descriptionData, setDescriptionData] = useState<any>();
+  const [descriptionData, setDescriptionData] = useState<DescriptionState[]>();
 
   useEffect(() => {
     if (streamData) {
@@ -105,9 +106,9 @@ export const StreamDetailComponent = ({
         <Title level={4}>Stream: {streamData?.attributes.stream_name}</Title>
         <Tag
           color={
-            streamData?.attributes.stream_status === "Running Normal"
-              ? "green"
-              : "volcano"
+            streamData?.attributes.stream_status === RUNNING_NORMAL
+              ? AntDesignColors.OK
+              : AntDesignColors.ERROR
           }
         >
           {streamData?.attributes.stream_status}

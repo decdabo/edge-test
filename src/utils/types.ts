@@ -1,3 +1,16 @@
+export enum AntDesignColors {
+  OK = 'green',
+  ERROR = 'red'
+}
+
+export enum RequestMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
+}
+
 export enum AuthContextTypes {
   LOGOUT = 'logout_type',
   LOGIN = 'login_type'
@@ -30,6 +43,12 @@ export interface GetStreamsStatusesDto {
       total: number;
     }
   } 
+}
+
+export interface DescriptionState {
+  key: string;
+  label: string;
+  children: string | number | React.ReactNode;
 }
 
 export interface StreamStatus {

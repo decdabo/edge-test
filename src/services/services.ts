@@ -1,5 +1,5 @@
 import { instance } from "./api"
-import { GetStreamsStatusesDto, LoginDto, StreamStatus } from "@/utils/types";
+import { GetStreamsStatusesDto, LoginDto, RequestMethod, StreamStatus } from "@/utils/types";
 
 function header(token: string) {
   return {
@@ -10,7 +10,7 @@ function header(token: string) {
 export async function login(body: LoginDto) {
   try {
     const response = await instance({
-      method: 'POST',
+      method: RequestMethod.POST,
       url: '/auth/local',
       data: body
     })
@@ -24,7 +24,7 @@ export async function login(body: LoginDto) {
 export async function getStreamStatuses(token: string): Promise<GetStreamsStatusesDto> {
   try {
     const response = await instance({
-      method: 'GET',
+      method: RequestMethod.GET,
       url: '/monitoreo-stream-statuses',
       headers: header(token)
     })
@@ -38,7 +38,7 @@ export async function getStreamStatuses(token: string): Promise<GetStreamsStatus
 export async function getClientStreams(token: string, account_name: string):Promise<GetStreamsStatusesDto> {
   try {
     const response = await instance({
-      method: 'GET',
+      method: RequestMethod.GET,
       url: `/monitoreo-stream-statuses?filters[account_name][$eq]=${account_name}`,
       headers: header(token)
     })
@@ -52,7 +52,7 @@ export async function getClientStreams(token: string, account_name: string):Prom
 export async function getClientsAlarms(token: string, account_name: string):Promise<GetStreamsStatusesDto> {
   try {
     const response = await instance({
-      method: 'GET',
+      method: RequestMethod.GET,
       url: `/monitoreo-stream-alarms?filters[account_name][$eq]=${account_name}`,
       headers: header(token)
     })
@@ -66,7 +66,7 @@ export async function getClientsAlarms(token: string, account_name: string):Prom
 export async function getStreamById(token: string, stream_id: string):Promise<StreamStatus> {
   try {
     const response = await instance({
-      method: 'GET',
+      method: RequestMethod.GET,
       url: `/monitoreo-stream-statuses/${stream_id}`,
       headers: header(token)
     })
@@ -80,7 +80,7 @@ export async function getStreamById(token: string, stream_id: string):Promise<St
 export async function getAlarmById(token: string, alarm_id: string):Promise<StreamStatus> {
   try {
     const response = await instance({
-      method: 'GET',
+      method: RequestMethod.GET,
       url: `/monitoreo-stream-alarms/${alarm_id}`,
       headers: header(token)
     })

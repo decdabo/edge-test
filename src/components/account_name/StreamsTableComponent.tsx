@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { AutoComplete, Button, Divider, Input, Table, Tag } from "antd";
 import { CSVLink } from 'react-csv';
-import { AutoComplete, Button, Divider, Input, Space, Table, Tag } from "antd";
 import { PAGES } from "@/utils/pages";
-import { StreamStatus } from "@/utils/types";
+import { AntDesignColors, StreamStatus } from "@/utils/types";
+import { PAGE_SIZE, RUNNING_NORMAL } from "@/utils/constants";
 
 
 interface StreamsTableComponentProps {
@@ -76,7 +77,7 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
         _: any,
         { stream_status, probe_id }: { stream_status: string; probe_id: string }
       ) => {
-        const color = stream_status === "Running Normal" ? "green" : "volcano";
+        const color = stream_status === RUNNING_NORMAL ? AntDesignColors.OK : AntDesignColors.ERROR;
 
         return (
           <Tag key={probe_id} color={color}>
@@ -135,7 +136,7 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
       </AutoComplete>
       <Divider />
 
-      <Table onChange={(page) => setCurrentPage(page.current || 1)} columns={columns} dataSource={currentTable} pagination={{ pageSize: 5 }} />
+      <Table onChange={(page) => setCurrentPage(page.current || 1)} columns={columns} dataSource={currentTable} pagination={PAGE_SIZE} />
       <Divider />
       { (currentTable && currentTable.length > 0) && (
           <CSVLink 

@@ -1,21 +1,18 @@
 'use client'
-import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
-import { useAuthContext } from '@/context/auth-context'
-import { getStreamById } from '@/services/services'
+import React, { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { PAGES } from '@/utils/pages'
 import { StreamStatus } from '@/utils/types'
-import { Col, Descriptions, Divider, Row, Tag } from 'antd'
-import Title from 'antd/es/typography/Title'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
+import { AuthContextStateTypes, useAuthContext } from '@/context/auth-context'
+import { getStreamById } from '@/services/services'
 
 
 
 const Page = () => {
   const router = useRouter()
-  const { state }: any = useAuthContext();
   const stream_id = useSearchParams().get('id')
+  const { state }: AuthContextStateTypes = useAuthContext();
   const [ streamData, setStreamData ] = useState<StreamStatus>()
 
   useEffect(() => {

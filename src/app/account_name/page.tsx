@@ -1,19 +1,19 @@
 "use client";
-import { StreamsTableComponent } from "@/components/account_name/StreamsTableComponent";
-import { SpinnerComponent } from "@/components/commons/SpinnerComponent";
-import { useAuthContext } from "@/context/auth-context";
-import { getClientStreams, getClientsAlarms } from "@/services/services";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Title from "antd/es/typography/Title";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Breadcrumb, Col, Divider, Row  } from "antd";
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
-import { Breadcrumb, Col, Divider, Row  } from "antd";
-import Title from "antd/es/typography/Title";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { getClientStreams, getClientsAlarms } from "@/services/services";
+import { StreamsTableComponent } from "@/components/account_name/StreamsTableComponent";
+import { SpinnerComponent } from "@/components/commons/SpinnerComponent";
+import { AuthContextStateTypes, useAuthContext } from "@/context/auth-context";
 
 const Page = () => {
   const router = useRouter();
-  const { state }: any = useAuthContext();
+  const { state }: AuthContextStateTypes = useAuthContext();
   const account_name = useSearchParams().get("account_name");
   const [streamsData, setStreamsData] = useState<StreamStatus[]>();
   const [ alarmsData, setAlarmsData ] = useState<StreamStatus[]>();

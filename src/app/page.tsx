@@ -5,13 +5,14 @@ import { Divider, Flex, Spin } from "antd";
 import { ClientsCardsComponents } from "@/components/home/ClientsCardsComponent";
 import { getStreamStatuses } from "@/services/services";
 import { GetStreamsStatusesDto, StreamStatus } from "@/utils/types";
-import { useAuthContext } from "@/context/auth-context";
+import { AuthContextStateTypes, useAuthContext } from "@/context/auth-context";
 import { SpinnerComponent } from "@/components/commons/SpinnerComponent";
+import { RELOAD_IN_MS } from "@/utils/constants";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [streamsData, setStreamsData] = useState<StreamStatus[][]>();
-  const { state }: any = useAuthContext()
+  const { state }: AuthContextStateTypes = useAuthContext()
 
   // Function needed for UI adapter
   function handleStackStreamsByClient(streams: StreamStatus[]) {
@@ -50,7 +51,7 @@ export default function Home() {
         setIsLoading(false);
       });
       //Here we can set time per ms
-    }, 60000);
+    }, RELOAD_IN_MS);
     
     return () => clearInterval(interval)
   }, [state.token]);

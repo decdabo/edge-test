@@ -1,11 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
-import { getAlarmById } from '@/services/services'
 import { PAGES } from '@/utils/pages'
 import { StreamStatus } from '@/utils/types'
 import { useAuthContext } from '@/context/auth-context'
+import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
+import { getAlarmById } from '@/services/services'
 
 const Page = () => {
   const router = useRouter()

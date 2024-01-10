@@ -1,11 +1,11 @@
 'use client'
 import React, { useEffect } from 'react'
-import { Layout } from 'antd'
-import { SiderbarComponent } from '@/components/ui/SiderbarComponent'
-import { useAuthContext } from '@/context/auth-context'
 import { useRouter } from 'next/navigation'
+import { Layout } from 'antd'
 import { PAGES } from '@/utils/pages'
+import { useAuthContext } from '@/context/auth-context'
 import Login from './login/page'
+import { SiderbarComponent } from '@/components/ui/SiderbarComponent'
 
 export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const { state }: any = useAuthContext();
