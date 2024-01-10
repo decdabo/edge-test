@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { CSVLink } from 'react-csv';
+import { AutoComplete, Button, Divider, Input, Space, Table, Tag } from "antd";
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
-import { AutoComplete, Divider, Input, Space, Table, Tag } from "antd";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+
 
 interface StreamsTableComponentProps {
   streamsData: StreamStatus[];
@@ -38,6 +40,7 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
 }) => {
   const [tableData, setTableData] = useState<TableData[]>();
   const [currentTable, setCurrentTable] = useState<TableData[]>();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const columns = [
     {
@@ -132,7 +135,20 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
       </AutoComplete>
       <Divider />
 
-      <Table columns={columns} dataSource={currentTable} />
+      <Table onChange={(page) => setCurrentPage(page.current || 1)} columns={columns} dataSource={currentTable} pagination={{ pageSize: 5 }} />
+      <Divider />
+      { (currentTable && currentTable.length > 0) && (
+          <CSVLink 
+            data={currentTable} 
+            filename={
+              isStream 
+                ? `${streamsData[0].attributes.account_name}-monitoring-page-${currentPage}` 
+                : `${streamsData[0].attributes.account_name}-alarms-page-${currentPage}`
+              }>
+            <Button type="primary">Download CSV</Button>
+          </CSVLink>
+        ) 
+      }
     </>
   );
 };
