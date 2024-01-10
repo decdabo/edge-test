@@ -141,9 +141,7 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
           <CSVLink 
             data={currentTable} 
             filename={
-              isStream 
-                ? `${streamsData[0].attributes.account_name}-monitoring-page-${currentPage}` 
-                : `${streamsData[0].attributes.account_name}-alarms-page-${currentPage}`
+              `${streamsData[0].attributes.account_name}-${isStream ? 'monitoring' : 'alarms'}-page-${currentPage}` 
               }>
             <Button type="primary">Download CSV</Button>
           </CSVLink>

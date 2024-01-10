@@ -1,9 +1,10 @@
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
-import { Breadcrumb, Col, Descriptions, Divider, Row, Tag } from "antd";
+import { Breadcrumb, Button, Col, Descriptions, Divider, Row, Tag } from "antd";
 import Title from "antd/es/typography/Title";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
 
 export const StreamDetailComponent = ({
   streamData,
@@ -83,6 +84,7 @@ export const StreamDetailComponent = ({
     }
   }, [streamData]);
   return (
+   <>
     <Row>
       <Col span={24}>
         <Breadcrumb>
@@ -116,5 +118,14 @@ export const StreamDetailComponent = ({
         <Descriptions items={descriptionData} />
       </Col>
     </Row>
+    <Divider />
+    <CSVLink
+      data={[streamData.attributes]} 
+      filename={
+        `${streamData.attributes.account_name}-${isStream ? 'stream' : 'alarm'}-${streamData.attributes.stream_name}-id-${streamData.attributes.stream_id}` 
+        }>
+      <Button type="primary">Download CSV</Button>
+    </CSVLink>
+   </>
   );
 };
