@@ -1,6 +1,6 @@
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
-import { Space, Table, Tag } from "antd";
+import { AutoComplete, Divider, Input, Space, Table, Tag } from "antd";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -12,30 +12,44 @@ interface StreamsTableComponentProps {
 interface TableData {
   id: number;
   key: string;
-  probe_id: string,
-  account_id: number,
-  account_name: string,
-  stream_id: number,
-  stream_name: string,
-  stream_status: string,
-  stream_test_spent_time: number,
-  createdAt: Date,
-  updatedAt: Date,
-  publishedAt: Date,
+  probe_id: string;
+  account_id: number;
+  account_name: string;
+  stream_id: number;
+  stream_name: string;
+  stream_status: string;
+  stream_test_spent_time: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
   stream_url: string;
 }
 
-export const StreamsTableComponent:React.FC<StreamsTableComponentProps> = ({ streamsData, isStream }) => {
-  const [ tableData, setTableData ] = useState<TableData[]>()
+function autocompleteDataFormatter(table: StreamStatus[]) {
+  return table.map((stream) => ({
+    value: stream.attributes.stream_name,
+    label: <span>{stream.attributes.stream_name}</span>,
+  }));
+}
+
+export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
+  streamsData,
+  isStream,
+}) => {
+  const [tableData, setTableData] = useState<TableData[]>();
+  const [currentTable, setCurrentTable] = useState<TableData[]>();
+
   const columns = [
     {
       title: "Stream",
       dataIndex: "stream_name",
       key: "stream_name",
-      render: (_: string, { stream_name, id }: { stream_name:string, id: number }) => (
+      render: (
+        _: string,
+        { stream_name, id }: { stream_name: string; id: number }
+      ) => (
         <>
-          {
-          isStream ? (
+          {isStream ? (
             <Link href={{ pathname: PAGES.STREAM_DETAIL, query: { id } }}>
               {stream_name}
             </Link>
@@ -43,8 +57,7 @@ export const StreamsTableComponent:React.FC<StreamsTableComponentProps> = ({ str
             <Link href={{ pathname: PAGES.ALARM_DETAIL, query: { id } }}>
               {stream_name}
             </Link>
-          )
-        }
+          )}
         </>
       ),
     },
@@ -56,33 +69,70 @@ export const StreamsTableComponent:React.FC<StreamsTableComponentProps> = ({ str
     {
       title: "Status",
       dataIndex: "stream_status",
-      render: (_: any, { stream_status, probe_id }: { stream_status: string, probe_id: string }) => {
-        const color = stream_status === 'Running Normal' ? 'green' : 'volcano'
+      render: (
+        _: any,
+        { stream_status, probe_id }: { stream_status: string; probe_id: string }
+      ) => {
+        const color = stream_status === "Running Normal" ? "green" : "volcano";
 
         return (
-          <Tag key={probe_id} color={color}>{stream_status}</Tag>
-        )
+          <Tag key={probe_id} color={color}>
+            {stream_status}
+          </Tag>
+        );
       },
     },
     {
       title: "Last updated",
       key: "updatedAt",
-      dataIndex: 'updatedAt',
-      render: (date: string) => <span>{new Date(date).toLocaleDateString('es-us',{ day: '2-digit', month: 'short', year: '2-digit' })}</span>
+      dataIndex: "updatedAt",
+      render: (date: string) => (
+        <span>
+          {new Date(date).toLocaleDateString("es-us", {
+            day: "2-digit",
+            month: "short",
+            year: "2-digit",
+          })}
+        </span>
+      ),
     },
   ];
+
+  function handleSearchStream(stream_search: string) {
+    if (!stream_search.length) return setCurrentTable(tableData);
+    const searchData = tableData?.filter(
+      (data) =>
+        data.stream_name.toLowerCase().includes(stream_search.toLowerCase())
+    );
+
+    setCurrentTable(searchData);
+  }
 
   useEffect(() => {
     const formatter = streamsData.map((stream, index) => {
       return {
         ...stream.attributes,
         id: stream.id,
-        key: `${index}-table-streams-key`
-      }
-    })
+        key: `${index}-table-streams-key`,
+      };
+    });
 
     setTableData(formatter);
-  }, [streamsData])
+    setCurrentTable(formatter);
+  }, [streamsData]);
 
-  return <Table columns={columns} dataSource={tableData} />;
+  return (
+    <>
+      <AutoComplete
+        options={autocompleteDataFormatter(streamsData)}
+        onSearch={handleSearchStream}
+        onSelect={handleSearchStream}
+      >
+        <Input.Search size="large" placeholder="Search here..." enterButton />
+      </AutoComplete>
+      <Divider />
+
+      <Table columns={columns} dataSource={currentTable} />
+    </>
+  );
 };
