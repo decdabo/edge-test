@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Title from "antd/es/typography/Title";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Breadcrumb, Col, Divider, Row  } from "antd";
+import { Breadcrumb, Col, Divider, Row, message  } from "antd";
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
 import { getClientStreams, getClientsAlarms } from "@/services/services";
@@ -29,8 +29,9 @@ const Page = () => {
         account_name
       ).then((response) => {
         setStreamsData(response.data);
-        setIsLoadingStream(false)
-      });
+      })
+      .catch(() => message.error('Error loading stream data'))
+      .finally(() => setIsLoadingStream(false))
 
       // Here we get the client streams alarms 
       getClientsAlarms(state.token, account_name)
@@ -38,6 +39,8 @@ const Page = () => {
           setAlarmsData(response.data);
           setIsLoadingAlarms(false);
         })
+        .catch(() => message.error('Error loading alarm data'))
+        .finally(() => setIsLoadingStream(false))
     } else {
       router.push(PAGES.HOME);
     }

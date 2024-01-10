@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Divider, Flex, Spin } from "antd";
+import { Divider, message } from "antd";
 
 import { ClientsCardsComponents } from "@/components/home/ClientsCardsComponent";
 import { getStreamStatuses } from "@/services/services";
@@ -38,7 +38,9 @@ export default function Home() {
     ).then((response: GetStreamsStatusesDto) => {
       handleStackStreamsByClient(response.data);
       setIsLoading(false);
-    });
+    })
+    .catch(() => message.error('Error gretting streams data'))
+
   },[state.token])
 
   // Here refresh continously

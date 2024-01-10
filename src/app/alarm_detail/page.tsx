@@ -6,6 +6,7 @@ import { StreamStatus } from '@/utils/types'
 import { useAuthContext } from '@/context/auth-context'
 import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
 import { getAlarmById } from '@/services/services'
+import { message } from 'antd'
 
 const Page = () => {
   const router = useRouter()
@@ -20,6 +21,7 @@ const Page = () => {
         stream_id
       ) 
       .then(response => setStreamData(response))
+      .catch(() => message.error('Error loading alarm data'))
     } else {
       router.push(PAGES.HOME)
     }

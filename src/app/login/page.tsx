@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Flex, Form, Input } from "antd";
+import { Button, Flex, Form, Input, message } from "antd";
 import { PAGES } from "@/utils/pages";
 import { AuthContextTypes, LoginDto } from "@/utils/types";
 import { login } from "@/services/services";
@@ -39,11 +39,11 @@ const Login = () => {
             username: response.user.username,
             email: response.user.email,
           },
-        });
+        })
 
         router.push(PAGES.HOME)
       })
-      .catch((err) => console.log(err));
+      .catch(() => message.error('Error login into aplication'))
   }
 
   function handleInputChange(e: { target: { name: string; value: string } }) {

@@ -6,6 +6,7 @@ import { StreamStatus } from '@/utils/types'
 import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
 import { AuthContextStateTypes, useAuthContext } from '@/context/auth-context'
 import { getStreamById } from '@/services/services'
+import { message } from 'antd'
 
 
 
@@ -22,6 +23,7 @@ const Page = () => {
         stream_id
       ) 
       .then(response => setStreamData(response))
+      .catch(() => message.error('Error getting stream data'))
     } else {
       router.push(PAGES.HOME)
     }
