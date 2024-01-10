@@ -16,6 +16,7 @@ export const SiderbarComponent = () => {
     })
   }
   
+  // Sidebar links and labels
   const items = [
     {
       key: 0,

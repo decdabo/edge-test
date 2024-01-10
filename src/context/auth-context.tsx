@@ -2,6 +2,8 @@
 import React, { createContext, useContext, useReducer } from "react"
 import { AuthContextAction, AuthContextState, AuthContextTypes } from "@/utils/types"
 
+
+// types required
 export type AuthContextStateTypes = {
   state: AuthContextState,
   dispatch: React.Dispatch<AuthContextAction>
@@ -14,9 +16,10 @@ const initialState: AuthContextState = {
   email: ''
 }
 
+//Creating our context
 const AuthContext = createContext({} as AuthContextStateTypes)
 
-
+// Context state handler
 const authReducer = (state: AuthContextState, action: AuthContextAction): AuthContextState => {
   switch (action.type) {
     case AuthContextTypes.LOGIN:
@@ -31,6 +34,7 @@ const authReducer = (state: AuthContextState, action: AuthContextAction): AuthCo
   }
 }
 
+// Provider as a father function component
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [ state, dispatch ] = useReducer(authReducer, initialState);
 
@@ -41,4 +45,5 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   )
 }
 
+// Hook to get our global state easyier
 export const useAuthContext = () => useContext(AuthContext);

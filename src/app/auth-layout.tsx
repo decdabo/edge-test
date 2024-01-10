@@ -11,13 +11,13 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const { state }: any = useAuthContext();
   const router = useRouter();
 
+  // This is our route protection, the user can't be able to access to our dashboard unauthenticated
   useEffect(() => {
     if (!state.isAuth) {
       router.push(PAGES.LOGIN)
     } else {
       router.push(PAGES.HOME)
     }
-
   }, [state.token])
   return (
     <>

@@ -14,8 +14,10 @@ const Page = () => {
   const stream_id = useSearchParams().get('id')
   const [ streamData, setStreamData ] = useState<StreamStatus>()
 
+
   useEffect(() => {
     if (stream_id) {
+      // Get alarm data in case stream_id valid
       getAlarmById(
         state.token,
         stream_id
@@ -23,7 +25,9 @@ const Page = () => {
       .then(response => setStreamData(response))
       .catch(() => message.error('Error loading alarm data'))
     } else {
+      // In case stream_id undefined we gonna move the user to home and notificate it 
       router.push(PAGES.HOME)
+      message.error('Alarm data not found')
     }
   }, [stream_id, state.token])
 

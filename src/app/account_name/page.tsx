@@ -42,7 +42,9 @@ const Page = () => {
         .catch(() => message.error('Error loading alarm data'))
         .finally(() => setIsLoadingStream(false))
     } else {
+      // In case of query undefined we gonna move the user to home and notificate it
       router.push(PAGES.HOME);
+      message.error('Stream not found')
     }
   }, [account_name, state.token]);
 

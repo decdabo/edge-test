@@ -7,6 +7,7 @@ import { AuthContextTypes, LoginDto } from "@/utils/types";
 import { login } from "@/services/services";
 import { AuthContextStateTypes, useAuthContext } from "@/context/auth-context";
 
+// Some types needed
 interface FormData {
   username: string;
   password: string;
@@ -20,9 +21,9 @@ const initialState: FormData = {
 const Login = () => {
   const router = useRouter()
   const { state, dispatch }: AuthContextStateTypes = useAuthContext();
-
   const [formData, setFormData] = useState<FormData>(initialState);
 
+  // Here we handle the POST form using the login service already created
   async function handleSubmit() {
     const body: LoginDto = {
       identifier: formData.username,
@@ -46,6 +47,7 @@ const Login = () => {
       .catch(() => message.error('Error login into aplication'))
   }
 
+  // Here we manage the input value and form data
   function handleInputChange(e: { target: { name: string; value: string } }) {
     setFormData({
       ...formData,

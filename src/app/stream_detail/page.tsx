@@ -18,6 +18,7 @@ const Page = () => {
 
   useEffect(() => {
     if (stream_id) {
+      // Get stream data in case stream_id valid
       getStreamById(
         state.token,
         stream_id
@@ -25,6 +26,7 @@ const Page = () => {
       .then(response => setStreamData(response))
       .catch(() => message.error('Error getting stream data'))
     } else {
+      // In case stream_id undefined we gonna move the user to home and notificate it 
       router.push(PAGES.HOME)
     }
   }, [stream_id, state.token])

@@ -17,7 +17,7 @@ export async function login(body: LoginDto) {
 
     return response.data;
   } catch (error) {
-    console.log(error)
+    throw new Error()
   }
 }
 

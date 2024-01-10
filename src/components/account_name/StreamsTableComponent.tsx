@@ -28,6 +28,8 @@ interface TableData {
   stream_url: string;
 }
 
+
+// This is a little helper, it format the StreamStatus data getting from the service and tun to table format required 
 function autocompleteDataFormatter(table: StreamStatus[]) {
   return table.map((stream) => ({
     value: stream.attributes.stream_name,
@@ -43,6 +45,7 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
   const [currentTable, setCurrentTable] = useState<TableData[]>();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // This is our colums data
   const columns = [
     {
       title: "Stream",
@@ -102,6 +105,7 @@ export const StreamsTableComponent: React.FC<StreamsTableComponentProps> = ({
     },
   ];
 
+  // Managing search input state and hydratate on every change of value
   function handleSearchStream(stream_search: string) {
     if (!stream_search.length) return setCurrentTable(tableData);
     const searchData = tableData?.filter(
