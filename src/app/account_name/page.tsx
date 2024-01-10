@@ -53,7 +53,6 @@ const Page = () => {
         <Breadcrumb.Item>{account_name}</Breadcrumb.Item>
       </Breadcrumb>
       <Divider />
-      <Divider />
       <Row style={{ gap: '30px' }}>
         <Col span={11}>
           {!isLoadingStream ? (
