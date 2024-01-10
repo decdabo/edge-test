@@ -1,5 +1,6 @@
 'use client'
 import { StreamDetailComponent } from '@/components/commons/StreamDetailComponent'
+import { useAuthContext } from '@/context/auth-context'
 import { getStreamById } from '@/services/services'
 import { PAGES } from '@/utils/pages'
 import { StreamStatus } from '@/utils/types'
@@ -13,20 +14,21 @@ import React, { useEffect, useState } from 'react'
 
 const Page = () => {
   const router = useRouter()
+  const { state }: any = useAuthContext();
   const stream_id = useSearchParams().get('id')
   const [ streamData, setStreamData ] = useState<StreamStatus>()
 
   useEffect(() => {
     if (stream_id) {
       getStreamById(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzA0NzI2NzkzLCJleHAiOjE3MDczMTg3OTN9.08cdBikBQG1wDhXrbvMpAHRwC-xE9rS4j6jolwA0Xtk",
+        state.token,
         stream_id
       ) 
       .then(response => setStreamData(response))
     } else {
       router.push(PAGES.HOME)
     }
-  }, [stream_id])
+  }, [stream_id, state.token])
 
   
 

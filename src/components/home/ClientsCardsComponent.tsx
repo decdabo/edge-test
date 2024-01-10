@@ -18,6 +18,7 @@ export const ClientsCardsComponents:React.FC<ClientsCardsComponentsProps> = ({ s
               title={
                 <>
                   <span>{streams[0].attributes?.account_name}</span>
+                  <br />
                   <Tag style={{ marginLeft: '10px' }} color="green">{ streams.filter(stream => stream.attributes.stream_status === 'Running Normal').length } Running Normal</Tag>
                   <Tag color="red">{ streams.filter(stream => stream.attributes.stream_status !== 'Running Normal').length } Have error</Tag>
                 </>
@@ -33,7 +34,7 @@ export const ClientsCardsComponents:React.FC<ClientsCardsComponentsProps> = ({ s
                     }
                   }}
                 >
-                  View More
+                  View All Info
                 </Link>
               {
                 streams.map((stream, index) => (
