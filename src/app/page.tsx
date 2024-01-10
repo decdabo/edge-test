@@ -5,11 +5,12 @@ import { Divider, Flex, Spin } from "antd";
 import { ClientsCardsComponents } from "@/components/home/ClientsCardsComponent";
 import { getStreamStatuses } from "@/services/services";
 import { GetStreamsStatusesDto, StreamStatus } from "@/utils/types";
+import { useAuthContext } from "@/context/auth-context";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [streamsData, setStreamsData] = useState<StreamStatus[][]>();
-
+  const { state }: any = useAuthContext()
 
   // Function needed for UI adapter
   function handleStackStreamsByClient(streams: StreamStatus[]) {
@@ -31,18 +32,18 @@ export default function Home() {
   // First call printing the home
   useEffect(() => {
     getStreamStatuses(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzA0NzI2NzkzLCJleHAiOjE3MDczMTg3OTN9.08cdBikBQG1wDhXrbvMpAHRwC-xE9rS4j6jolwA0Xtk"
+      state.token
     ).then((response: GetStreamsStatusesDto) => {
       handleStackStreamsByClient(response.data);
       setIsLoading(false);
     });
-  },[])
+  },[state.token])
 
   // Here refresh continously
   useEffect(() => {
     const interval = setInterval(() => {
       getStreamStatuses(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzA0NzI2NzkzLCJleHAiOjE3MDczMTg3OTN9.08cdBikBQG1wDhXrbvMpAHRwC-xE9rS4j6jolwA0Xtk"
+        state.token
       ).then((response: GetStreamsStatusesDto) => {
         handleStackStreamsByClient(response.data);
         setIsLoading(false);
@@ -51,7 +52,7 @@ export default function Home() {
     }, 60000);
     
     return () => clearInterval(interval)
-  }, []);
+  }, [state.token]);
 
 
   return (

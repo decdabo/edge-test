@@ -1,5 +1,6 @@
 "use client";
 import { StreamsTableComponent } from "@/components/account_name/StreamsTableComponent";
+import { useAuthContext } from "@/context/auth-context";
 import { getClientStreams, getClientsAlarms } from "@/services/services";
 import { PAGES } from "@/utils/pages";
 import { StreamStatus } from "@/utils/types";
@@ -11,6 +12,7 @@ import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const router = useRouter();
+  const { state }: any = useAuthContext();
   const account_name = useSearchParams().get("account_name");
   const [streamsData, setStreamsData] = useState<StreamStatus[]>();
   const [ alarmsData, setAlarmsData ] = useState<StreamStatus[]>();
@@ -22,7 +24,7 @@ const Page = () => {
     if (account_name) {
       // Here we get the client monitoring
       getClientStreams(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzA0NzI2NzkzLCJleHAiOjE3MDczMTg3OTN9.08cdBikBQG1wDhXrbvMpAHRwC-xE9rS4j6jolwA0Xtk",
+        state.token,
         account_name
       ).then((response) => {
         setStreamsData(response.data);
@@ -30,7 +32,7 @@ const Page = () => {
       });
 
       // Here we get the client streams alarms 
-      getClientsAlarms("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzA0NzI2NzkzLCJleHAiOjE3MDczMTg3OTN9.08cdBikBQG1wDhXrbvMpAHRwC-xE9rS4j6jolwA0Xtk", account_name)
+      getClientsAlarms(state.token, account_name)
         .then(response => {
           setAlarmsData(response.data);
           setIsLoadingAlarms(false);
@@ -38,7 +40,7 @@ const Page = () => {
     } else {
       router.push(PAGES.HOME);
     }
-  }, [account_name]);
+  }, [account_name, state.token]);
 
 
   return (

@@ -5,23 +5,25 @@ import { StreamDetailComponent } from '@/components/commons/StreamDetailComponen
 import { getAlarmById } from '@/services/services'
 import { PAGES } from '@/utils/pages'
 import { StreamStatus } from '@/utils/types'
+import { useAuthContext } from '@/context/auth-context'
 
 const Page = () => {
   const router = useRouter()
+  const { state }: any = useAuthContext();
   const stream_id = useSearchParams().get('id')
   const [ streamData, setStreamData ] = useState<StreamStatus>()
 
   useEffect(() => {
     if (stream_id) {
       getAlarmById(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzA0NzI2NzkzLCJleHAiOjE3MDczMTg3OTN9.08cdBikBQG1wDhXrbvMpAHRwC-xE9rS4j6jolwA0Xtk",
+        state.token,
         stream_id
       ) 
       .then(response => setStreamData(response))
     } else {
       router.push(PAGES.HOME)
     }
-  }, [stream_id])
+  }, [stream_id, state.token])
 
   return (
     <div className='bg-grey' style={{ height: '100%', padding: '20px' }}>

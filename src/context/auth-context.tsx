@@ -5,7 +5,7 @@ import React, { createContext, useContext, useReducer } from "react"
 const AuthContext = createContext({})
 
 const initialState: AuthContextState = {
-  isAuth: true,
+  isAuth: false,
   token: '',
   username: '',
   email: ''
