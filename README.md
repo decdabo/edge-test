@@ -75,3 +75,14 @@ A promise-based HTTP client for the browser and Node.js.
 
 [React CSV](https://www.npmjs.com/package/react-csv)  
 A React component to parse JSON for CSV data and download it.
+
+## UML Diagrams
+
+### Home
+![Home](./UML/home-diagram.png)
+
+### Stream / Alarms Detail
+![Home](./UML/stream-alarm-detail-diagram.png)
+
+### Client Monitoring
+![Home](./UML/client-monitoring-landing.png)
