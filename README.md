@@ -24,8 +24,6 @@ edge-test is an admin dashboard developed using Next.js 13, TypeScript, Ant Desi
    - [Axios](#axios)
    - [react-csv](#react-csv)
 
-4. [Node.js Version](#nodejs-version)
-
 ## Getting Started
 
 ### Prerequisites
